@@ -82,7 +82,13 @@ end)
 
 -- Enable break indent
 vim.o.breakindent = true
-
+vim.o.expandtab = true
+vim.o.tabstop = 4 -- Example: 4 spaces wide
+vim.o.shiftwidth = 4
+vim.o.cindent = true
+vim.bo.tabstop = 4 -- Example: 4 spaces wide
+vim.bo.shiftwidth = 4
+vim.bo.cindent = true
 -- Save undo history
 vim.o.undofile = true
 
@@ -136,7 +142,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
+-- Neo-Tree open
+vim.keymap.set('n', '<leader>e', function()
+  vim.cmd 'Neotree toggle'
+end, { desc = '[E] Toggle Neo-Tree' })
+vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = '[C]ode [A]ction' })
+vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = 'Toggle [S]creenkey' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -257,7 +268,10 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-
+  {
+    'NStefan002/screenkey.nvim',
+    lazy = false,
+  },
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
