@@ -146,8 +146,31 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader>e', function()
   vim.cmd 'Neotree toggle'
 end, { desc = '[E] Toggle Neo-Tree' })
+-- trigger lsp.CodeAction
 vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = '[C]ode [A]ction' })
-vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = 'Toggle [S]creenkey' })
+-- open $MYVIMRC
+vim.keymap.set('n', '<leader>os', ':e $MYVIMRC<CR>', { desc = '[O]pen vimrc [S]ettings' })
+-- cloak toggle
+-- :CloakDisable, :CloakEnable, :CloakToggle and :CloakPreviewLine
+vim.keymap.set('n', '<leader>tc', ':CloakToggle<CR>', { desc = '[T]oggle [C]loak' })
+vim.keymap.set('n', '<leader>tp', ':CloakPreviewLine<CR>', { desc = '[T]oggle [P]review under cursor (cloak)' })
+-- harpoon keymaps
+vim.keymap.set('n', '<leader>Hh', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = 'toggle [h]arpoon quick menu' })
+vim.keymap.set('n', '<leader>HH', ':lua require("harpoon.mark").add_file()<CR>', { desc = 'add file to [H]arpoon' })
+vim.keymap.set('n', '<leader>H1', ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = 'switch to to Harpoon file[1]' })
+vim.keymap.set('n', '<leader>H2', ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = 'switch to to Harpoon file[2]' })
+vim.keymap.set('n', '<leader>H3', ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = 'switch to to Harpoon file[3]' })
+vim.keymap.set('n', '<leader>H4', ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = 'switch to to Harpoon file[4]' })
+vim.keymap.set('n', '<leader>H5', ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = 'switch to to Harpoon file[5]' })
+-- trouble, errors and shit
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics (Trouble)' })
+vim.keymap.set('n', '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
+vim.keymap.set('n', '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Symbols (Trouble)' })
+vim.keymap.set('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'LSP Definitions / references / ... (Trouble)' })
+vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
+vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
+-- toggle Screenkey
+vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = '[T]oggle [S]creenkey' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -269,8 +292,60 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
   {
+    'ThePrimeAgen/harpoon',
+    lazy = false,
+    opts = {},
+  },
+  {
+    'laytan/cloak.nvim',
+    opts = {
+      enabled = true,
+      cloak_character = '*',
+      -- The applied highlight group (colors) on the cloaking, see `:h highlight`.
+      highlight_group = 'Comment',
+      -- Applies the length of the replacement characters for all matched
+      -- patterns, defaults to the length of the matched pattern.
+      cloak_length = nil, -- Provide a number if you want to hide the true length of the value.
+      -- Whether it should try every pattern to find the best fit or stop after the first.
+      try_all_patterns = true,
+      -- Set to true to cloak Telescope preview buffers. (Required feature not in 0.1.x)
+      cloak_telescope = true,
+      -- Re-enable cloak when a matched buffer leaves the window.
+      cloak_on_leave = false,
+      patterns = {
+        {
+          -- Match any file starting with '.env'.
+          -- This can be a table to match multiple file patterns.
+          file_pattern = '.env*',
+          -- Match an equals sign and any character after it.
+          -- This can also be a table of patterns to cloak,
+          -- example: cloak_pattern = { ':.+', '-.+' } for yaml files.
+          cloak_pattern = '=.+',
+          -- A function, table or string to generate the replacement.
+          -- The actual replacement will contain the 'cloak_character'
+          -- where it doesn't cover the original text.
+          -- If left empty the legacy behavior of keeping the first character is retained.
+          replace = nil,
+        },
+      },
+    },
+  },
+  {
     'NStefan002/screenkey.nvim',
     lazy = false,
+    opts = {
+      compress_after = 3,
+      clear_after = 10,
+      win_opts = {
+        width = 30,
+        height = 1,
+        row = vim.o.lines / 2,
+        col = vim.o.columns,
+        anchor = 'NE',
+        border = 'single',
+        title = 'Screenkeys',
+      },
+    },
   },
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -318,6 +393,10 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
+
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>o', group = '[O]pen' },
+        { '<leader>H', group = '[H]arpoon' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
@@ -614,6 +693,7 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
+        virtual_lines = { current_line = true },
         virtual_text = {
           source = 'if_many',
           spacing = 2,
@@ -736,7 +816,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 3500,
             lsp_format = 'fallback',
           }
         end
@@ -875,7 +955,48 @@ require('lazy').setup({
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
-
+  {
+    'folke/noice.nvim',
+    opts = {
+      views = {
+        cmdline_popup = {
+          position = {
+            row = 5,
+            col = '50%',
+          },
+          size = {
+            width = 60,
+            height = 'auto',
+          },
+        },
+        popupmenu = {
+          relative = 'editor',
+          position = {
+            row = 8,
+            col = '50%',
+          },
+          size = {
+            width = 60,
+            height = 10,
+          },
+          border = {
+            style = 'rounded',
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winhighlight = { Normal = 'Normal', FloatBorder = 'DiagnosticInfo' },
+          },
+        },
+      },
+    },
+  },
+  -- trouble, errors and shit
+  {
+    'folke/trouble.nvim',
+    opts = {},
+    cmd = 'Trouble',
+    key = {},
+  },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -916,6 +1037,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
