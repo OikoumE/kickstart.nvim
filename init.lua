@@ -1,9 +1,10 @@
 --[[
+--
 Kickstart.nvim is a starting point for your own configuration.
   The goal is that you can read every line of code, top-to-bottom, understand
   what your configuration is doing, and modify it to suit your needs.
 
-  Once you've done that, you can start exploring, configuring and tinkering to
+  kOnce you've done that, you can start exploring, configuring and tinkering to
   make Neovim your own! That might mean leaving Kickstart just the way it is for a while
   or immediately breaking it into modular pieces. It's up to you!
 
@@ -45,6 +46,9 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
+
+-- disable swap file:
+-- vim.opt.swapfile = false
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -148,32 +152,8 @@ vim.keymap.set('n', '<leader>e', function()
 end, { desc = '[E] Toggle Neo-Tree' })
 -- trigger lsp.CodeAction
 vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = '[C]ode [A]ction' })
-
+-- custom keybinds
 require 'keybinds'
--- -- open $MYVIMRC
--- vim.keymap.set('n', '<leader>os', ':e $MYVIMRC<CR>', { desc = '[O]pen vimrc [S]ettings' })
--- -- cloak toggle
--- -- :CloakDisable, :CloakEnable, :CloakToggle and :CloakPreviewLine
--- vim.keymap.set('n', '<leader>tc', ':CloakToggle<CR>', { desc = '[T]oggle [C]loak' })
--- vim.keymap.set('n', '<leader>tp', ':CloakPreviewLine<CR>', { desc = '[T]oggle [P]review under cursor (cloak)' })
--- -- harpoon keymaps
--- vim.keymap.set('n', '<leader>Hh', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = 'toggle [h]arpoon quick menu' })
--- vim.keymap.set('n', '<leader>HH', ':lua require("harpoon.mark").add_file()<CR>', { desc = 'add file to [H]arpoon' })
--- vim.keymap.set('n', '<leader>H1', ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = 'switch to to Harpoon file[1]' })
--- vim.keymap.set('n', '<leader>H2', ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = 'switch to to Harpoon file[2]' })
--- vim.keymap.set('n', '<leader>H3', ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = 'switch to to Harpoon file[3]' })
--- vim.keymap.set('n', '<leader>H4', ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = 'switch to to Harpoon file[4]' })
--- vim.keymap.set('n', '<leader>H5', ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = 'switch to to Harpoon file[5]' })
--- -- trouble, errors and shit
--- vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics (Trouble)' })
--- vim.keymap.set('n', '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
--- vim.keymap.set('n', '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Symbols (Trouble)' })
--- vim.keymap.set('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'LSP Definitions / references / ... (Trouble)' })
--- vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
--- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
--- -- toggle Screenkey
--- vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = '[T]oggle [S]creenkey' })
-
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -342,8 +322,8 @@ require('lazy').setup({
       win_opts = {
         width = 30,
         height = 1,
-        row = vim.o.lines / 2,
-        col = vim.o.columns,
+        row = vim.o.lines - 4,
+        col = vim.o.columns / 2 + 15,
         anchor = 'NE',
         border = 'single',
         title = 'Screenkeys',
@@ -1021,7 +1001,9 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {
+        timeout_ms = 0,
+      }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
