@@ -34,5 +34,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "19d461ddd543e938eb22505fb03fa878800270b6" },
   "tokyonight.nvim": { "branch": "main", "commit": "00d92e6009671493fceeb0e4baf644f5b983e6e4" },
   "trouble.nvim": { "branch": "main", "commit": "c098362fe603d3922095e7db595961e020bdf2d0" },
-  "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" }
+  "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" },
+  "workspace-diagnostics.nvim": { "branch": "main", "commit": "60f9175b2501ae3f8b1aba9719c0df8827610c8e" }
 }
