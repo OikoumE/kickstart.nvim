@@ -1,8 +1,10 @@
 -- trigger lsp.CodeAction
+print 'hello from lsp'
 vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = '[C]ode [A]ction' })
 
-function setup()
-  return {
+return {
+  {
+
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -263,5 +265,5 @@ function setup()
         },
       }
     end,
-  }
-end
+  },
+}
