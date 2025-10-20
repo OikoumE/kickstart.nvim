@@ -4,6 +4,19 @@ vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>', { norema
 
 return {
   {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  {
+
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -26,6 +39,7 @@ return {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
           print 'lsp attached'
+          vim.lsp.inlay_hint.enable()
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
           --
@@ -123,6 +137,23 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- toggle virtual text
+          map('<leader>tt', function()
+            local c = vim.diagnostic.config()
+            vim.diagnostic.config { virtual_text = not c.virtual_text }
+          end, '[T]oggle virtual [T]ext')
+
+          -- lsp toggle virtual lines
+          map('<leader>tv', function()
+            local virtLines = vim.diagnostic.config().virtual_lines
+            if virtLines then
+              virtLines = false
+            else
+              virtLines = { current_line = true }
+            end
+            vim.diagnostic.config { virtual_lines = virtLines }
+          end, '[T]oggle [V]irtual lines')
         end,
       })
 
@@ -140,10 +171,11 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        -- virtual_lines = { current_line = true },
+        virtual_lines = { current_line = true },
         virtual_text = {
           source = 'if_many',
           spacing = 2,
+          wrap = true,
           format = function(diagnostic)
             local diagnostic_message = {
               [vim.diagnostic.severity.ERROR] = diagnostic.message,
