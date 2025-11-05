@@ -17,7 +17,7 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
+--  Experiment for yourself to see if you like it!gc
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -57,7 +57,7 @@ vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250
 
 -- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 0
 
 -- Configure how new splits should be opened
 vim.o.splitright = true
@@ -161,7 +161,19 @@ require('lazy').setup({
     lazy = false,
     opts = {},
   },
+  {
+    'rcarriga/nvim-notify',
 
+    opts = {
+      function()
+        require('notify').setup { background_colour = '#000000' }
+        vim.notify = require 'notify'
+      end,
+      on_open = function(win)
+        vim.api.nvim_win_set_config(win, { focusable = false })
+      end,
+    },
+  },
   -- NOTE: Plugins can specify dependencies.
   -- The dependencies are proper plugin specifications as well - anything
   -- you do for a plugin at the top level, you can do for a dependency.
