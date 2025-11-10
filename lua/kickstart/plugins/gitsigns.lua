@@ -3,6 +3,7 @@
 -- config. This will add also the recommended keymaps.
 
 return {
+  -- FIX :I DONT FUCKING KNOW WTF THIS IS DOES OR ANYTZINFG FUCKIT!
   {
     'lewis6991/gitsigns.nvim',
     opts = {

@@ -1,4 +1,5 @@
 return { -- Autocompletion
+
   'saghen/blink.cmp',
   event = 'VimEnter',
   branch = 'main',

@@ -19,4 +19,15 @@ return { -- Highlight, edit, and navigate code
     },
     indent = { enable = true, disable = { 'ruby' } },
   },
+  {
+    'andymass/vim-matchup',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        matchup = {
+          enable = true,
+        },
+      }
+    end,
+  },
 }
