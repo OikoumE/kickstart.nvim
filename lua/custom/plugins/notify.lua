@@ -7,7 +7,12 @@ return {
       vim.notify = require 'notify'
     end,
     on_open = function(win)
-      vim.api.nvim_win_set_config(win, { focusable = false })
+      vim.api.nvim_win_set_config(win, {
+
+        focusable = false,
+        style = 'minimal',
+        border = 'none',
+      })
     end,
   },
 }

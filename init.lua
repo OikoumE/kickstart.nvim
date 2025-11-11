@@ -1,6 +1,6 @@
 -- disable swap file:
---
 -- vim.opt.swapfile = false
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -131,10 +131,6 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
---for _, plugin in ipairs(require 'dev') do
---plugin.config()
---end
-
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   require 'kickstart.plugins.debug',
@@ -142,8 +138,8 @@ require('lazy').setup({
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
+  { import = 'custom' },
   { import = 'custom.plugins' },
-  { import = 'dev' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
