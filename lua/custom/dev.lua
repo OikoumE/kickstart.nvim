@@ -1,6 +1,13 @@
+local path = '/home/oik/Extra/customNvimPlugins/'
 return {
   -- {
-  --   dir = '/home/oik/Extra/customNvimPlugins/headtoggle.nvim/',
+  --   dir = path .. 'warnpop.nvim/',
+  --   config = function()
+  --     require('warnpop').setup()
+  --   end,
+  -- },
+  -- {
+  --   dir = path..'headtoggle.nvim/',
   --   config = function()
   --     require('headtoggle').setup()
   --   end,

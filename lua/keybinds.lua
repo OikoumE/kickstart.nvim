@@ -1,10 +1,9 @@
+print 'keymaps loaded'
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
 -- disable the fucking annoying Q macro mapping
 vim.keymap.set('n', 'q:', '<nop>', { noremap = true, silent = true })
 -- Diagnostic keymaps
@@ -84,4 +83,3 @@ vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 vim.keymap.set('n', '<leader>cS', '<cmd>source %<CR>', { desc = '[S]ource lua file' })
 vim.keymap.set('n', '<leader>cx', ':.lua<CR>', { desc = 'Execute the current line' })
 vim.keymap.set('v', '<leader>cX', ':lua<CR>', { desc = 'Execute the current selection' })
-print 'keymaps loaded'
