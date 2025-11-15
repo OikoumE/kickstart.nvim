@@ -1,3 +1,4 @@
+-- return {}
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -7,8 +8,8 @@ return {
     lazygit = { enabled = true },
     bigfile = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
-    indent = { enabled = false },
+    explorer = { enabled = false, follow_file = true, tree = true },
+    indent = { enabled = true },
     input = { enabled = true },
     notifier = {
       enabled = true,
@@ -63,13 +64,13 @@ return {
       end,
       desc = 'Notification History',
     },
-    {
-      '<leader>e',
-      function()
-        Snacks.explorer()
-      end,
-      desc = 'File Explorer',
-    },
+    -- {
+    --   '<leader>e',
+    --   function()
+    --     Snacks.explorer()
+    --   end,
+    --   desc = 'File Explorer',
+    -- },
     -- find
     -- {
     --   '<leader>fb',

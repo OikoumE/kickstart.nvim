@@ -1,28 +1,31 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
-return {}
--- return {
---   'nvim-neo-tree/neo-tree.nvim',
---   version = '*',
---   dependencies = {
---     'nvim-lua/plenary.nvim',
---     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
---     'MunifTanjim/nui.nvim',
---   },
---   lazy = false,
---   keys = {
---     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
---   },
---   opts = {
---     filesystem = {
---       window = {
---         mappings = {
---           ['\\'] = 'close_window',
---         },
---       },
---     },
---   },
--- }
+return {
+  'nvim-neo-tree/neo-tree.nvim',
+  version = '*',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+    'MunifTanjim/nui.nvim',
+  },
+  lazy = false,
+  keys = {
+    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>e', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+  },
+  opts = {
+    filesystem = {
+      window = {
+        mappings = {
+          ['\\'] = 'close_window',
+          ['<leader>e'] = 'close_window',
+          ['e'] = 'none',
+          ['<space>'] = 'none',
+        },
+      },
+    },
+  },
+}
 --
 --
 -- ---@type neotree.Config.Base
@@ -387,6 +390,7 @@ return {}
 -- },
 -- nesting_rules = {},
 -- -- Global custom commands that will be available in all sources (if not overridden in `opts[source_name].commands`)
+--
 -- --
 -- -- You can then reference the custom command by adding a mapping to it:
 -- --    globally    -> `opts.window.mappings`

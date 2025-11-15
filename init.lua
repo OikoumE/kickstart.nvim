@@ -1,5 +1,5 @@
 -- disable swap file:
--- vim.opt.swapfile = false
+vim.opt.swapfile = false
 
 -- Set <space> as the leader key
 -- See `:help mapleader`

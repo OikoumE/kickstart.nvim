@@ -82,7 +82,7 @@ return {
   opts = {},
   config = function()
     -- #toggle Screenkey
-    vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = '[T]oggle [S]creenkey' })
+    vim.keymap.set('n', '<leader>ts', require('screenkey').toggle, { desc = '[T]oggle [S]creenkey' })
     require('screenkey').setup(opts)
     require('screenkey').toggle()
   end,
