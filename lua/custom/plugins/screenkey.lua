@@ -76,6 +76,22 @@ local opts = {
     filepath = vim.fn.stdpath 'data' .. '/screenkey_log',
   },
 }
+
+local function register_on_lazygit_close()
+  -- autocmd for lazygit terminal closing
+  vim.api.nvim_create_autocmd('TermClose', {
+    pattern = '*',
+    callback = function(args)
+      local bufname = vim.api.nvim_buf_get_name(args.buf)
+      print('closing term' .. bufname)
+      -- check if it's lazygit
+      if bufname:match 'lazygit' then
+        require('screenkey').turn_on()
+      end
+    end,
+  })
+end
+
 return {
   'NStefan002/screenkey.nvim',
   lazy = false,
@@ -94,6 +110,7 @@ return {
         sk.toggle()
       end
     end
+    register_on_lazygit_close()
     vim.keymap.set('n', '<leader>ts', sk.toggle, { desc = '[T]oggle [S]creenkey' })
     sk.setup(opts)
     sk.toggle()

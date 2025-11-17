@@ -5,7 +5,17 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    lazygit = { enabled = true },
+    lazygit = {
+      enabled = true,
+      -- config = function(opts, defaults) end, ---@type snacks.Config
+      -- opts = {
+      --   lazygit = {
+      --     -- your lazygit configuration comes here
+      --     -- or leave it empty to use the default settings
+      --     -- refer to the configuration section below
+      --   },
+      -- },
+    },
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = false, follow_file = true, tree = true },
@@ -496,6 +506,7 @@ return {
     {
       '<leader>gg',
       function()
+        require('screenkey').turn_off()
         Snacks.lazygit()
       end,
       desc = 'Lazygit',
