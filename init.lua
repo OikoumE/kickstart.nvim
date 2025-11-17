@@ -86,9 +86,6 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
--- INFO: custom keybinds
-require 'keybinds'
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -161,5 +158,7 @@ require('lazy').setup({
     },
   },
 })
+-- INFO: custom keybinds
+require 'keybinds'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

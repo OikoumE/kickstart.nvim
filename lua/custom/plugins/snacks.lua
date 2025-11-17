@@ -503,14 +503,13 @@ return {
       desc = 'Git Browse',
       mode = { 'n', 'v' },
     },
-    {
-      '<leader>gg',
-      function()
-        require('screenkey').turn_off()
-        Snacks.lazygit()
-      end,
-      desc = 'Lazygit',
-    },
+    -- { -- handled in keybinds.lua
+    --   '<leader>gg',
+    --   function()
+    --     Snacks.lazygit()
+    --   end,
+    --   desc = 'Lazygit',
+    -- },
     {
       '<leader>un',
       function()

@@ -49,8 +49,7 @@ vim.keymap.set('n', '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>',
 vim.keymap.set('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'LSP Definitions / references / ... (Trouble)' })
 vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
 vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
--- -- #toggle Screenkey
--- vim.keymap.set('n', '<leader>ts', ':Screenkey<CR>', { desc = '[T]oggle [S]creenkey' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -83,3 +82,10 @@ vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 vim.keymap.set('n', '<leader>cS', '<cmd>source %<CR>', { desc = '[S]ource lua file' })
 vim.keymap.set('n', '<leader>cx', ':.lua<CR>', { desc = 'Execute the current line' })
 vim.keymap.set('v', '<leader>cX', ':lua<CR>', { desc = 'Execute the current selection' })
+
+-- -- #toggle Screenkey
+vim.keymap.set('n', '<leader>ts', require('screenkey').toggle, { desc = '[T]oggle [S]creenkey' })
+vim.keymap.set('n', '<leader>gg', function()
+  require('snacks').lazygit()
+  require('screenkey').turn_off()
+end, { desc = 'Lazy[G]it + screenkey_off' })

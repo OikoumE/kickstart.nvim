@@ -83,7 +83,6 @@ local function register_on_lazygit_close()
     pattern = '*',
     callback = function(args)
       local bufname = vim.api.nvim_buf_get_name(args.buf)
-      print('closing term' .. bufname)
       -- check if it's lazygit
       if bufname:match 'lazygit' then
         require('screenkey').turn_on()
@@ -98,7 +97,8 @@ return {
   opts = {},
   config = function()
     -- #toggle Screenkey
-    ---@type table & { SomeThing: fun() }
+    ---@type table & { turn_off: fun() }
+    ---@type table & { turn_on: fun() }
     local sk = require 'screenkey'
     sk.turn_off = function()
       if sk.is_active() then
@@ -111,7 +111,6 @@ return {
       end
     end
     register_on_lazygit_close()
-    vim.keymap.set('n', '<leader>ts', sk.toggle, { desc = '[T]oggle [S]creenkey' })
     sk.setup(opts)
     sk.toggle()
   end,
