@@ -1,4 +1,4 @@
-opts = {
+local opts = {
   win_opts = {
     width = 30,
     height = 3,
@@ -82,8 +82,20 @@ return {
   opts = {},
   config = function()
     -- #toggle Screenkey
-    vim.keymap.set('n', '<leader>ts', require('screenkey').toggle, { desc = '[T]oggle [S]creenkey' })
-    require('screenkey').setup(opts)
-    require('screenkey').toggle()
+    ---@type table & { SomeThing: fun() }
+    local sk = require 'screenkey'
+    sk.turn_off = function()
+      if sk.is_active() then
+        sk.toggle()
+      end
+    end
+    sk.turn_on = function()
+      if not sk.is_active() then
+        sk.toggle()
+      end
+    end
+    vim.keymap.set('n', '<leader>ts', sk.toggle, { desc = '[T]oggle [S]creenkey' })
+    sk.setup(opts)
+    sk.toggle()
   end,
 }

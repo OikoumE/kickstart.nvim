@@ -29,7 +29,6 @@ return {
       'artemave/workspace-diagnostics.nvim',
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
@@ -151,14 +150,14 @@ return {
           wrap = true,
           prefix = '@',
           format = function(diagnostic)
-            return diagnostic.message
-            -- local diagnostic_message = {
-            -- [vim.diagnostic.severity.ERROR] = diagnostic.message,
-            -- [vim.diagnostic.severity.WARN] = diagnostic.message,
-            -- [vim.diagnostic.severity.INFO] = diagnostic.message,
-            -- [vim.diagnostic.severity.HINT] = diagnostic.message,
-            -- }
-            -- return diagnostic_message[diagnostic.severity]
+            -- return diagnostic.message
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
           end,
         },
       }
