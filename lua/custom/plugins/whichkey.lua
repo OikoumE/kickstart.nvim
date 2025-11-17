@@ -45,14 +45,16 @@ return { -- Useful plugin to show you pending keybinds.
     -- Document existing key chains
     -- #tags key menu keys keymaps keymap
     spec = {
-
       { '<leader>c', group = '[C]ode' },
       { '<leader>o', group = '[O]pen' },
+      { '<leader>g', group = '[G]it' },
       { '<leader>os', group = '[O]pen [S]ettings' },
-      { '<leader>H', group = '[H]arpoon' },
+      { '<leader>h', group = '[H]arpoon' },
       { '<leader>s', group = '[S]earch' },
       { '<leader>t', group = '[T]oggle' },
-      { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      { '<leader>u', group = 'something [U]nhelpful' },
+      { '<leader>x', group = 'e[X]tras' },
+      -- { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
     },
   },
 }

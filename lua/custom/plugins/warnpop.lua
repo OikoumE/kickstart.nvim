@@ -1,4 +1,7 @@
 return {
+  -- TODO: maybe trigger this in warnpop??
+  -- FIX: maybe trigger this in warnpop??
+  -- require('workspace-diagnostics').populate_workspace_diagnostics(client, event.buf)
   -- 'OikoumE/warnpop.nvim',
   -- config = function()
   --   require('warnpop').setup {
